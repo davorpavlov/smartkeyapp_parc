@@ -68,13 +68,13 @@ def ring_bell():
     message2.pack(pady=10)
 
     
-    count = 10
+    count = 5
     def update_countdown():
         nonlocal count
         message2.config(text=f"Poruka se zatvara za {count} sekundi")
         count -= 1
         if count >= 0:
-            popup.after(500, update_countdown)
+            popup.after(1000, update_countdown)
         else:
             popup.destroy()
     update_countdown()
