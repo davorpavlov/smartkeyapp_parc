@@ -67,14 +67,14 @@ def ring_bell():
     message2 = tk.Label(popup, font=("Helvetica", 14))
     message2.pack(pady=10)
 
-    # Countdown timer
+    
     count = 10
     def update_countdown():
         nonlocal count
         message2.config(text=f"Poruka se zatvara za {count} sekundi")
         count -= 1
         if count >= 0:
-            popup.after(1000, update_countdown)
+            popup.after(500, update_countdown)
         else:
             popup.destroy()
     update_countdown()

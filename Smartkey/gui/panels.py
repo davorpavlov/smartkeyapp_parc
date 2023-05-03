@@ -130,7 +130,7 @@ def panel_3():
     
     active_var = tk.BooleanVar()
     active_checkbutton = tk.Checkbutton(form_frame, font=("Helvetica", 14), variable=active_var)
-    active_checkbutton.grid(row=3, column=1, padx=5, pady=5, sticky="W")
+    active_checkbutton.grid(row=3, column=1, padx=30, pady=5, sticky="W")
 
     buttons_frame = tk.Frame(form_frame)
     buttons_frame.grid(row=4, column=0, columnspan=2, pady=20)

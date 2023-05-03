@@ -117,18 +117,6 @@ def clear_form(name_entry, surname_entry, pin_entry, active_checkbutton):
     active_checkbutton.deselect()
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 # Kreiranje tablice u bazi
 def create_database():
     conn = sqlite3.connect('smartkey.db')
