@@ -63,9 +63,23 @@ def save_user_db(listbox, name_entry, surname_entry, pin_entry, active_var, mess
             else:
                 messagebox.showinfo("Info", "Status korisnika nije promijenjen.")
         else:
-            c.execute("INSERT INTO users (name, surname, pin, active) VALUES (?, ?, ?, ?)", (name, surname, pin, active_value))
-            conn.commit()
-            messagebox.showinfo("Uspjeh", "Korisnik je dodan u bazu podataka.")
+            c.execute("SELECT * FROM users WHERE name=? AND surname=? AND pin=?", (name, surname, pin))
+            existing_user = c.fetchone()
+
+            if existing_user:
+                if existing_user[3] != active_value:
+                    c.execute("UPDATE users SET active=? WHERE id=?", (active_value, existing_user[0]))
+                    conn.commit()
+                    messagebox.showinfo("Uspjeh", "Status korisnika je ažuriran u bazi podataka.")
+                else:
+                    messagebox.showinfo("Info", "Korisnik već postoji u bazi podataka.")
+            else:
+                c.execute("INSERT INTO users (name, surname, pin, active) VALUES (?, ?, ?, ?)", (name, surname, pin, active_value))
+                conn.commit()
+                messagebox.showinfo("Uspjeh", "Korisnik je dodan u bazu podataka.")
+    listbox.delete(0, tk.END)
+    get_users_from_db(listbox)
+
 
 def delete_user_db(listbox):
         selection = listbox.curselection()
@@ -94,6 +108,8 @@ def delete_user_db(listbox):
         listbox.delete(index)
         
         messagebox.showinfo("Uspjeh", "Korisnik je obrisan iz baze podataka.")
+        listbox.delete(0, tk.END)
+        get_users_from_db(listbox)
 
 def get_users_from_db(listbox):
     conn = sqlite3.connect('smartkey.db')
