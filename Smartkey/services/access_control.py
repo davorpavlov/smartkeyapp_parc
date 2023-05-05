@@ -23,6 +23,7 @@ def get_users():
     return users
 
 def check_pin(pin1_value, pin2_value, pin3_value, pin4_value, generated_message_text, panel_3):
+    generated_message_text.delete(1.0, tk.END)
     users = get_users()
     user_pin = str(f"{pin1_value.get()}{pin2_value.get()}{pin3_value.get()}{pin4_value.get()}")
     pin_found = False
@@ -33,7 +34,7 @@ def check_pin(pin1_value, pin2_value, pin3_value, pin4_value, generated_message_
             if response == 1:
                 panel_3()
             else:
-                generated_message_text.insert(tk.END, f"Dobrodošao {user['name']} {user['surname']}")
+                generated_message_text.insert(tk.END, f"Dobrodošao {user['name']} {user['surname']}")   
             pin_found = True
             break
         elif str(user['pin']) == user_pin and user['active']:
